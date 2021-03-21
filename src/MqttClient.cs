@@ -109,6 +109,7 @@ namespace WHR930
 
             var device = new JObject();
             device.Add("name", new JValue("Zehnder WHR 930"));
+            device.Add("identifiers", new JValue("zehnder-whr-930"));
             json.Add("device", device);
 
             json.Add("name", new JValue(sensor.SensorName));
