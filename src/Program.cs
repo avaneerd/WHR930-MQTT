@@ -30,24 +30,30 @@ namespace WHR930
 
             while (true)
             {
-                var sensorState = new JObject();
+                try {
+                    var sensorState = new JObject();
 
-                foreach (var cmd in getCommands())
-                {
-                    serialClient.SendCommandWithResponse(cmd);
-
-                    foreach (var prop in cmd.GetType().GetProperties())
+                    foreach (var cmd in getCommands())
                     {
-                        if (Attribute.IsDefined(prop, typeof(SensorAttribute)))
-                        {
-                            var sensor = Attribute.GetCustomAttribute(prop, typeof(SensorAttribute)) as SensorAttribute;
+                        serialClient.SendCommandWithResponse(cmd);
 
-                            sensorState.Add(sensor.UniqueID, new JValue(prop.GetValue(cmd)));
+                        foreach (var prop in cmd.GetType().GetProperties())
+                        {
+                            if (Attribute.IsDefined(prop, typeof(SensorAttribute)))
+                            {
+                                var sensor = Attribute.GetCustomAttribute(prop, typeof(SensorAttribute)) as SensorAttribute;
+
+                                sensorState.Add(sensor.UniqueID, new JValue(prop.GetValue(cmd)));
+                            }
                         }
                     }
-                }
 
-                await mqttClient.PublishSensorStateAsync(sensorState.ToString());
+                    await mqttClient.PublishSensorStateAsync(sensorState.ToString());
+                }
+                catch (Exception ex)
+                {
+                    await Console.Error.WriteLineAsync(ex.ToString());
+                }
 
                 await Task.Delay(TimeSpan.FromSeconds(30));
             }

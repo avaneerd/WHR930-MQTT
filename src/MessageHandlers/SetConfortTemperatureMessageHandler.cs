@@ -17,7 +17,7 @@ namespace WHR930.MessageHandlers {
             this.commandClient = commandClient;
         }
 
-        public Task HandleMessage(MqttApplicationMessage message)
+        public async Task HandleMessage(MqttApplicationMessage message)
         {
             try
             {
@@ -25,14 +25,10 @@ namespace WHR930.MessageHandlers {
                 serialCommand.ComfortTemperature = double.Parse(Encoding.UTF8.GetString(message.Payload));
 
                 commandClient.SendCommandWithAck(serialCommand);
-
-                return Task.CompletedTask;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-
-                throw;
+                await Console.Error.WriteLineAsync(ex.ToString());
             }
         }
     }
