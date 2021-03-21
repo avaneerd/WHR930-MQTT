@@ -107,8 +107,13 @@ namespace WHR930
         {
             var json = new JObject();
 
+            var device = new JObject();
+            device.Add("name", new JValue("Zehnder WHR 930"));
+            json.Add("device", device);
+
             json.Add("name", new JValue(sensor.SensorName));
             json.Add("unique_id", new JValue(sensor.UniqueID));
+            json.Add("expire_after ", new JValue(21_600));
             json.Add("state_topic", new JValue("homeassistant/sensor/whr930/state"));
             json.Add("value_template", new JValue("{{ value_json['" + sensor.UniqueID + "'] }}"));
 
