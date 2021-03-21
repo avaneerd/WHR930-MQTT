@@ -6,31 +6,31 @@ namespace WHR930.Commands
     {
         public GetTemperatureCommand() : base(0x00, 0xD1) {}
 
-        [Sensor("Comfort temperature", DeviceClass = "temperature")]
+        [Sensor("Comfort temperature", UnitOfMeasurement = "°C")]
         public double ComfortTemperature
         {
             get => DataBytes[0] / 2d - 20;
         }
 
-        [Sensor("Outside air temperature", DeviceClass = "temperature")]
+        [Sensor("Outside air temperature", UnitOfMeasurement = "°C")]
         public double OutsideAirTemperature
         {
             get => DataBytes[1] / 2d - 20;
         }
 
-        [Sensor("Supply air temperature", DeviceClass = "temperature")]
+        [Sensor("Supply air temperature", UnitOfMeasurement = "°C")]
         public double SupplyAirTemperature
         {
             get => DataBytes[2] / 2d - 20;
         }
 
-        [Sensor("Return air temperature", DeviceClass = "temperature")]
+        [Sensor("Return air temperature", UnitOfMeasurement = "°C")]
         public double ReturnAirTemperature
         {
             get => DataBytes[3] / 2d - 20;
         }
 
-        [Sensor("Exhaust air temperature", DeviceClass = "temperature")]
+        [Sensor("Exhaust air temperature", UnitOfMeasurement = "°C")]
         public double ExhaustAirTemperature
         {
             get => DataBytes[4] / 2d - 20;
