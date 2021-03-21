@@ -86,7 +86,7 @@ namespace WHR930
             var message = new MqttApplicationMessageBuilder()
                 .WithPayload(sensorState)
                 .WithTopic($"homeassistant/sensor/whr930/state")
-                .WithRetainFlag(true)
+                .WithRetainFlag(false)
                 .Build();
 
             await client.PublishAsync(message);
@@ -129,7 +129,7 @@ namespace WHR930
             var message = new MqttApplicationMessageBuilder()
                 .WithPayload(json.ToString())
                 .WithTopic($"homeassistant/sensor/whr930-{sensor.UniqueID}/config")
-                .WithRetainFlag(true)
+                .WithRetainFlag(false)
                 .Build();
 
             await client.PublishAsync(message);
