@@ -115,6 +115,7 @@ namespace WHR930
             json.Add("name", new JValue(sensor.SensorName));
             json.Add("unique_id", new JValue(sensor.UniqueID));
             json.Add("state_topic", new JValue("homeassistant/sensor/whr930/state"));
+            json.Add("state_class", new JValue("measurement"));
             json.Add("value_template", new JValue("{{ value_json['" + sensor.UniqueID + "'] }}"));
 
             if (!string.IsNullOrEmpty(sensor.DeviceClass))
