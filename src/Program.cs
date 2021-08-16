@@ -19,7 +19,9 @@ namespace WHR930
             using var mqttClient = new MqttClient(
                 Environment.GetEnvironmentVariable("MQTT_CLIENT_ID"),
                 Environment.GetEnvironmentVariable("MQTT_HOST"),
-                int.Parse(Environment.GetEnvironmentVariable("MQTT_PORT")));
+                int.Parse(Environment.GetEnvironmentVariable("MQTT_PORT")),
+                Environment.GetEnvironmentVariable("MQTT_USERNAME"),
+                Environment.GetEnvironmentVariable("MQTT_PASSWORD"));
 
             RegisterSensors(mqttClient);
 

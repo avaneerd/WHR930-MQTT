@@ -18,15 +18,19 @@ namespace WHR930
         private readonly string clientName;
         private readonly string host;
         private readonly int port;
+        private readonly string username;
+        private readonly string password;
         private IMqttClient client;
         private List<IMessageHandler> messageHandlers = new List<IMessageHandler>();
         private List<SensorAttribute> sensors = new List<SensorAttribute>();
 
-        public MqttClient(string clientName, string host, int port)
+        public MqttClient(string clientName, string host, int port, string username, string password)
         {
             this.clientName = clientName;
             this.host = host;
             this.port = port;
+            this.username = username;
+            this.password = password;
         }
 
         public async Task ConnectClientAsync()
@@ -97,6 +101,7 @@ namespace WHR930
             var options = new MqttClientOptionsBuilder()
                 .WithClientId(clientName)
                 .WithTcpServer(host, port)
+                .WithCredentials(username, password)
                 .WithCleanSession()
                 .Build();
 
